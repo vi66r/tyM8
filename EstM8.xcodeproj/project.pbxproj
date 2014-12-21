@@ -14,6 +14,7 @@
 		E4A286361A4675510090526F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4A286351A4675510090526F /* Images.xcassets */; };
 		E4A286391A4675510090526F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A286371A4675510090526F /* LaunchScreen.xib */; };
 		E4A286451A4675510090526F /* EstM8Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A286441A4675510090526F /* EstM8Tests.m */; };
+		E4A286501A472AE10090526F /* dateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A2864F1A472AE10090526F /* dateParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		E4A2863E1A4675510090526F /* EstM8Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EstM8Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4A286431A4675510090526F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4A286441A4675510090526F /* EstM8Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EstM8Tests.m; sourceTree = "<group>"; };
+		E4A2864E1A472AE10090526F /* dateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dateParser.h; sourceTree = "<group>"; };
+		E4A2864F1A472AE10090526F /* dateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dateParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,8 @@
 				E4A2862D1A4675510090526F /* AppDelegate.m */,
 				E4A2862F1A4675510090526F /* ViewController.h */,
 				E4A286301A4675510090526F /* ViewController.m */,
+				E4A2864E1A472AE10090526F /* dateParser.h */,
+				E4A2864F1A472AE10090526F /* dateParser.m */,
 				E4A286321A4675510090526F /* Main.storyboard */,
 				E4A286351A4675510090526F /* Images.xcassets */,
 				E4A286371A4675510090526F /* LaunchScreen.xib */,
@@ -221,6 +226,7 @@
 			files = (
 				E4A286311A4675510090526F /* ViewController.m in Sources */,
 				E4A2862E1A4675510090526F /* AppDelegate.m in Sources */,
+				E4A286501A472AE10090526F /* dateParser.m in Sources */,
 				E4A2862B1A4675510090526F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
