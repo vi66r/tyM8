@@ -12,6 +12,6 @@
 
 @property (strong, nonatomic) NSString* dateToParse;
 
-- (NSDate*) parseStringToDueDate:(NSString*) inputString;
+- (NSDate*) parseStringToDueDate:(NSString*) inputString withTimeString:(NSString*) inputTimeString;
 
 @end

@@ -15,6 +15,7 @@
 		E4A286391A4675510090526F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A286371A4675510090526F /* LaunchScreen.xib */; };
 		E4A286451A4675510090526F /* EstM8Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A286441A4675510090526F /* EstM8Tests.m */; };
 		E4A286501A472AE10090526F /* dateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A2864F1A472AE10090526F /* dateParser.m */; };
+		E4A286531A478D4C0090526F /* paperDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A286521A478D4C0090526F /* paperDataParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		E4A286441A4675510090526F /* EstM8Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EstM8Tests.m; sourceTree = "<group>"; };
 		E4A2864E1A472AE10090526F /* dateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dateParser.h; sourceTree = "<group>"; };
 		E4A2864F1A472AE10090526F /* dateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dateParser.m; sourceTree = "<group>"; };
+		E4A286511A478D4C0090526F /* paperDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paperDataParser.h; sourceTree = "<group>"; };
+		E4A286521A478D4C0090526F /* paperDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = paperDataParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,8 @@
 				E4A2862D1A4675510090526F /* AppDelegate.m */,
 				E4A2862F1A4675510090526F /* ViewController.h */,
 				E4A286301A4675510090526F /* ViewController.m */,
+				E4A286511A478D4C0090526F /* paperDataParser.h */,
+				E4A286521A478D4C0090526F /* paperDataParser.m */,
 				E4A2864E1A472AE10090526F /* dateParser.h */,
 				E4A2864F1A472AE10090526F /* dateParser.m */,
 				E4A286321A4675510090526F /* Main.storyboard */,
@@ -173,6 +178,7 @@
 				TargetAttributes = {
 					E4A286241A4675510090526F = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = V4X533PGY2;
 					};
 					E4A2863D1A4675510090526F = {
 						CreatedOnToolsVersion = 6.1;
@@ -227,6 +233,7 @@
 				E4A286311A4675510090526F /* ViewController.m in Sources */,
 				E4A2862E1A4675510090526F /* AppDelegate.m in Sources */,
 				E4A286501A472AE10090526F /* dateParser.m in Sources */,
+				E4A286531A478D4C0090526F /* paperDataParser.m in Sources */,
 				E4A2862B1A4675510090526F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,9 +358,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = EstM8/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -361,9 +371,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = EstM8/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -420,6 +433,7 @@
 				E4A2864A1A4675510090526F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E4A2864B1A4675510090526F /* Build configuration list for PBXNativeTarget "EstM8Tests" */ = {
 			isa = XCConfigurationList;
@@ -428,6 +442,7 @@
 				E4A2864D1A4675510090526F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
