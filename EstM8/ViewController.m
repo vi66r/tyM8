@@ -39,6 +39,11 @@
 @property (strong, nonatomic) dateParser *dateParser;
 @property (strong, nonatomic) paperDataParser *paperDateParser;
 
+@property (strong, nonatomic) UISwipeGestureRecognizer *swipeRight;
+@property (strong, nonatomic) UISwipeGestureRecognizer *swipeLeft;
+
+@property (strong, nonatomic) UIView* cardOne;
+
 @end
 
 @implementation ViewController
@@ -48,11 +53,20 @@
     _dateParser = [[dateParser alloc] init];
     _paperDateParser = [[paperDataParser alloc] init];
     
+    _swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveLeft)];
+    _swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    _swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveRight)];
+    _swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [self.view addGestureRecognizer:_swipeLeft];
+    [self.view addGestureRecognizer:_swipeRight];
+    
+    _cardOne = [[UIView alloc] initWithFrame:CGRectMake(20, 108, _screen.size.width-40, _screen.size.height - 128)];
+    
     self.view.backgroundColor = UIColorFromRGB(0xE0F7FA);
     _screen = [[UIScreen mainScreen] bounds];
     _main = [[UIScrollView alloc] initWithFrame:_screen];
@@ -153,11 +167,20 @@
             [UIView animateWithDuration:0.2 animations:^{
                 [_go setFrame:CGRectMake(20, 108, _screen.size.width-40, _screen.size.height - 128)];
             } completion:^(BOOL finished) {
-                //
+                [self.view addSubview:_cardOne];
             }];
         }];
+        _go.userInteractionEnabled = NO;
     }
     NSLog(@"%@", _dueDate);
+}
+
+- (void)moveLeft{
+    
+}
+
+- (void)moveRight{
+    
 }
 
 @end
