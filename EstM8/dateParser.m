@@ -26,7 +26,7 @@
     }
     
     if ([timeStringComponents count] > 1) {
-        if ([[timeStringComponents objectAtIndex:1] isEqualToString:@"PM"]) {
+        if ([[[timeStringComponents objectAtIndex:1] lowercaseString] isEqualToString:@"pm"]) {
             NSString* replacement = [NSString stringWithFormat:@"%f", [[hoursAndMinutes objectAtIndex:0] doubleValue]+12];
             [hoursAndMinutes replaceObjectAtIndex:0 withObject:replacement];
         }
@@ -35,13 +35,24 @@
     switch ([stringComponents count]) {
         case 1:{
             // do something
-            if ([[[stringComponents objectAtIndex:0] lowercaseString] isEqualToString:@"tonight"] || [[[stringComponents objectAtIndex:0] lowercaseString] isEqualToString:@"today"]) {
-                dueDate = [NSDate dateWithTimeIntervalSinceNow:86400];
-            }
-            
             NSDate *now = [NSDate date];
             NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
             NSDateComponents *components = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekCalendarUnit | NSWeekdayCalendarUnit fromDate:now];
+            
+            if ([[[stringComponents objectAtIndex:0] lowercaseString] isEqualToString:@"tonight"] || [[[stringComponents objectAtIndex:0] lowercaseString] isEqualToString:@"today"]) {
+                
+                if ([timeStringComponents count] > 1) {
+                    if ([[[timeStringComponents objectAtIndex:1] lowercaseString] isEqualToString:@"am"]) {
+                        NSInteger day = [components weekday] + 1;
+                        dueDate = [NSDate dateWithTimeIntervalSinceNow:86400];
+                    } else {
+                        dueDate = now;
+                    }
+                } else {
+                    dueDate = now;
+                }
+                
+            }
             
             if ([[[stringComponents objectAtIndex:0] lowercaseString] isEqualToString:@"monday"]) {
                 

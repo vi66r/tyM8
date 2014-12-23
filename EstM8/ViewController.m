@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "dateParser.h"
 #import "paperDataParser.h"
+#import "presentationCard.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -35,14 +36,18 @@
 @property (strong, nonatomic) UITextField* time;
 
 @property (strong, nonatomic) UIButton* go;
+@property (strong, nonatomic) UIButton* close;
 
 @property (strong, nonatomic) dateParser *dateParser;
 @property (strong, nonatomic) paperDataParser *paperDateParser;
 
 @property (strong, nonatomic) UISwipeGestureRecognizer *swipeRight;
 @property (strong, nonatomic) UISwipeGestureRecognizer *swipeLeft;
+@property (strong, nonatomic) UITapGestureRecognizer *keyboardTap;
 
 @property (strong, nonatomic) UIView* cardOne;
+
+@property (strong, nonatomic) NSMutableArray* cardArray;
 
 @end
 
@@ -50,6 +55,10 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
     _dateParser = [[dateParser alloc] init];
     _paperDateParser = [[paperDataParser alloc] init];
     
@@ -57,15 +66,11 @@
     _swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     _swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveRight)];
     _swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-}
+    _keyboardTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self.view addGestureRecognizer:_swipeLeft];
-    [self.view addGestureRecognizer:_swipeRight];
     
-    _cardOne = [[UIView alloc] initWithFrame:CGRectMake(20, 108, _screen.size.width-40, _screen.size.height - 128)];
+    _cardArray = [[NSMutableArray alloc] init];;
     
     self.view.backgroundColor = UIColorFromRGB(0xE0F7FA);
     _screen = [[UIScreen mainScreen] bounds];
@@ -73,7 +78,7 @@
     _main.backgroundColor = UIColorFromRGB(0xE0F7FA);
     //_main.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_main];
-    //_main.contentSize = CGSizeMake(_screen.size.width, _screen.size.height+10);
+    _main.contentSize = CGSizeMake(_screen.size.width, _screen.size.height+10);
     _first = [[UILabel alloc] initWithFrame:CGRectMake(0, _screen.size.height/2-180, _screen.size.width, 66)];
     _first.text = @"I have to write a";
     _first.textColor = [UIColor orangeColor];
@@ -86,7 +91,9 @@
     _paperNumber.textColor = [UIColor redColor];
     _paperNumber.backgroundColor = [UIColor clearColor];
     _paperNumber.textAlignment = NSTextAlignmentCenter;
+    _paperNumber.delegate = self;
     [_main addSubview:_paperNumber];
+    [self.view addGestureRecognizer:_keyboardTap];
     
     _two = [[UILabel alloc] initWithFrame:CGRectMake(0, _screen.size.height/2-180+44+33, _screen.size.width, 66)];
     _two.text = @"page paper by";
@@ -101,6 +108,7 @@
     _date.textColor = [UIColor redColor];
     _date.backgroundColor = [UIColor clearColor];
     _date.textAlignment = NSTextAlignmentCenter;
+    _date.delegate = self;
     [_main addSubview:_date];
     
     _three = [[UILabel alloc] initWithFrame:CGRectMake(0, _screen.size.height/2-180+44+33+55+35, _screen.size.width, 66)];
@@ -116,6 +124,7 @@
     _time.textColor = [UIColor redColor];
     _time.backgroundColor = [UIColor clearColor];
     _time.textAlignment = NSTextAlignmentCenter;
+    _time.delegate = self;
     [_main addSubview:_time];
     
     _go = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -124,14 +133,29 @@
     [_go.titleLabel setFont:[UIFont fontWithName:@"Avenir-Black" size:40]];
     [_go.titleLabel setTextColor:[UIColor redColor]];
     [_go setTintColor:[UIColor orangeColor]];
-    _go.layer.cornerRadius = 33;
+    _go.layer.cornerRadius = _go.frame.size.width/2;
     _go.layer.shadowColor = [[UIColor clearColor] colorWithAlphaComponent:0.5].CGColor;
     _go.layer.shadowOffset = CGSizeMake(0, 1);
     _go.layer.shadowOpacity = 1.0f;
     _go.layer.shadowRadius = 1.0f;
     _go.backgroundColor = [UIColor orangeColor];
     [_go addTarget:self action:@selector(calculate) forControlEvents:UIControlEventTouchUpInside];
-    [_main addSubview:_go];
+    
+    _close = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_close setFrame:CGRectMake(_screen.size.width-86-10+33, _screen.size.height-86-10+33,0, 0)];
+    [_close setTitle:@"-" forState:normal];
+    [_close.titleLabel setFont:[UIFont fontWithName:@"Avenir-Black" size:40]];
+    [_close.titleLabel setTextColor:[UIColor redColor]];
+    [_close setTintColor:[UIColor orangeColor]];
+    _close.layer.cornerRadius = _close.frame.size.width/2;
+    _close.layer.shadowColor = [[UIColor clearColor] colorWithAlphaComponent:0.5].CGColor;
+    _close.layer.shadowOffset = CGSizeMake(0, 1);
+    _close.layer.shadowOpacity = 1.0f;
+    _close.layer.shadowRadius = 1.0f;
+    _close.backgroundColor = [UIColor redColor];
+    [_close addTarget:self action:@selector(closeCard) forControlEvents:UIControlEventTouchUpInside];
+    [_main addSubview:_close];
+
     
     UIView *upBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _screen.size.width, 88)];
     upBanner.backgroundColor = UIColorFromRGB(0x00BCD4);
@@ -144,6 +168,19 @@
     _topBanner.backgroundColor = UIColorFromRGB(0x006064);
     [upBanner addSubview:_topBanner];
     [self.view addSubview:upBanner];
+    
+    [_main addGestureRecognizer:_swipeLeft];
+    [_main addGestureRecognizer:_swipeRight];
+    
+    _cardOne = [[UIView alloc] initWithFrame:CGRectMake(_screen.size.width/2-33, _screen.size.height/2-180+44+33+55+33+50+80+50,66, 66)];
+    _cardOne.backgroundColor = [UIColor orangeColor];
+    _cardOne.layer.cornerRadius = _cardOne.frame.size.width/2;
+    _cardOne.layer.shadowColor = [[UIColor clearColor] colorWithAlphaComponent:0.5].CGColor;
+    _cardOne.layer.shadowOffset = CGSizeMake(0, 1);
+    _cardOne.layer.shadowOpacity = 1.0f;
+    _cardOne.layer.shadowRadius = 1.0f;
+    [_main addSubview:_cardOne];
+    [_main addSubview:_go];
 
 }
 
@@ -159,28 +196,89 @@
         [alert show];
     } else {
         [_paperDateParser getPageStatsBasedWithNumberOfPages:[_paperNumber.text doubleValue] andDate:_dueDate];
+        [_go removeFromSuperview];
+        [_main bringSubviewToFront:_close];
         [UIView animateWithDuration:0.2 animations:^{
-            [_go setFrame:CGRectMake(15, 98, _screen.size.width-30, _screen.size.height - 118)];
-            _go.layer.cornerRadius = 0;
-            _go.backgroundColor = [UIColor whiteColor];
+            [_cardOne setFrame:CGRectMake(15, 98, _screen.size.width-30, _screen.size.height - 118)];
+            _cardOne.layer.cornerRadius = 0;
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.2 animations:^{
-                [_go setFrame:CGRectMake(20, 108, _screen.size.width-40, _screen.size.height - 128)];
+                [_cardOne setFrame:CGRectMake(20, 108, _screen.size.width-40, _screen.size.height - 128)];
+                [_close setFrame:CGRectMake(_screen.size.width-86-10, _screen.size.height-86-10, 66, 66)];
+                _close.layer.cornerRadius = _close.frame.size.width/2;
+                _cardOne.backgroundColor = [UIColor whiteColor];
             } completion:^(BOOL finished) {
-                [self.view addSubview:_cardOne];
+//                [_main addSubview:_cardOne];
+//                [_main bringSubviewToFront:_close];
+                for (int i = 0; i < 8; ++i) {
+                    CGPoint position = CGPointMake(_screen.size.width + ((_screen.size.width * i)+20), _cardOne.frame.origin.y);
+                    NSLog(@"x position: %f", _cardOne.frame.size.width/2 + ((_screen.size.width) * (i)));
+                    NSLog(@"type Number: %i", i);
+                    presentationCard* card = [[presentationCard alloc] initWithPosition:position andScreen:_screen andTypeNum:i];
+                    
+                    [_cardArray addObject:card];
+                    [_main addSubview:[_cardArray objectAtIndex:i]];
+                    [_main bringSubviewToFront:_close];
+                }
             }];
         }];
+        
+
+
         _go.userInteractionEnabled = NO;
     }
     NSLog(@"%@", _dueDate);
 }
 
 - (void)moveLeft{
-    
+    [UIView animateWithDuration:0.25 animations:^{
+        for (presentationCard *c in _cardArray) {
+            [c setFrame:CGRectMake(c.frame.origin.x - _screen.size.width, _cardOne.frame.origin.y, _screen.size.width-40, _screen.size.height-128)];
+        }
+    } completion:^(BOOL finished) {
+        //
+    }];
 }
 
 - (void)moveRight{
-    
+    [UIView animateWithDuration:0.25 animations:^{
+        for (presentationCard *c in _cardArray) {
+            [c setFrame:CGRectMake(c.frame.origin.x + _screen.size.width, _cardOne.frame.origin.y, _screen.size.width-40, _screen.size.height-128)];
+        }
+    } completion:^(BOOL finished) {
+        //
+    }];
 }
+
+- (void)closeCard{
+    for (presentationCard* c in _cardArray) {
+        [c removeFromSuperview];
+    }
+    [UIView animateWithDuration:0.2 animations:^{
+        [_close setFrame:CGRectMake(_screen.size.width-86-10+33, _screen.size.height-86-10+33, 0, 0)];
+    } completion:^(BOOL finished) {
+//        [_cardOne removeFromSuperview];
+        [UIView animateWithDuration:0.2 animations:^{
+            [_cardOne setFrame:CGRectMake(_screen.size.width/2-33, _screen.size.height/2-180+44+33+55+33+50+80+50,66, 66)];
+            _cardOne.layer.cornerRadius = 33;
+            _cardOne.backgroundColor = [UIColor orangeColor];
+        } completion:^(BOOL finished) {
+            _go.userInteractionEnabled = YES;
+            [_main addSubview:_go];
+        }];
+    }];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return NO;
+}
+
+- (void)dismissKeyboard{
+    [_paperNumber resignFirstResponder];
+    [_date resignFirstResponder];
+    [_time resignFirstResponder];
+}
+
 
 @end

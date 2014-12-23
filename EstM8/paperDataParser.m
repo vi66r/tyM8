@@ -38,8 +38,9 @@
     }
     
     NSLog(@"%i", judgementOfLength);
-    
-    NSDate *now = [NSDate date];
+    NSInteger offset = [[NSTimeZone localTimeZone] secondsFromGMT];
+    NSDate *now = [[NSDate date] dateByAddingTimeInterval:offset];
+    NSLog(@"%@", now);
     NSTimeInterval timeLeft = [dueDate timeIntervalSinceDate:now];
     NSLog(@"you have this much time left: %f", timeLeft);
     
