@@ -49,25 +49,25 @@
     if (timeLeft <= 1) {
         switch (judgementOfLength) {
             case 0:
-                canYouDoIt = @"...good luck buddy.";
+                canYouDoIt = @"you're going to need some serious luck.";
                 break;
             case 1:
-                canYouDoIt = @"90% chance this isn't happening";
+                canYouDoIt = @"there's a 90% chance this isn't happening.";
                 break;
             case 2:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             case 3:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             case 4:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             case 5:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             default:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
         }
     } else if (timeLeft > 1 && timeLeft <= 3){
@@ -82,16 +82,16 @@
                 canYouDoIt = @"\"fat chance. lolz.\"";
                 break;
             case 3:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             case 4:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             case 5:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             default:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
         }
     }else if(timeLeft > 3 && timeLeft <= 5){
@@ -106,16 +106,16 @@
                 canYouDoIt = @"this venture is not likely to succeed.";
                 break;
             case 3:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             case 4:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             case 5:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             default:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
         }
     }else if(timeLeft > 5 && timeLeft <= 10){
@@ -133,13 +133,13 @@
                 canYouDoIt = @"concentrate. No breaks.";
                 break;
             case 4:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             case 5:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             default:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
         }
     }else if(timeLeft > 10 && timeLeft <= 24){
@@ -160,10 +160,10 @@
                 canYouDoIt = @"Not too likely..";
                 break;
             case 5:
-                canYouDoIt = @"... yeah no. Nope.";
+                canYouDoIt = @"... yeah no. this is impossible...";
                 break;
             default:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
         }
     }else if(timeLeft > 24 && timeLeft <=36){
@@ -187,7 +187,7 @@
                 canYouDoIt = @"you're screwed.";
                 break;
             default:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
         }
     }else if(timeLeft > 36 && timeLeft <= 48){
@@ -208,10 +208,10 @@
                 canYouDoIt = @"chances are looking über slim.";
                 break;
             case 5:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
             default:
-                canYouDoIt = @"nope.";
+                canYouDoIt = @"this is impossible...";
                 break;
         }
     }else if(timeLeft > 48 && timeLeft <= 72){

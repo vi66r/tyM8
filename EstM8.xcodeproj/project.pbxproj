@@ -29,6 +29,7 @@
 		E4C022191A48AB8E00AA35D3 /* analytics.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C022181A48AB8E00AA35D3 /* analytics.png */; };
 		E4C0221B1A48ABAB00AA35D3 /* bubbles.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C0221A1A48ABAB00AA35D3 /* bubbles.png */; };
 		E4C0221E1A48BDDB00AA35D3 /* presentationCard.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C0221D1A48BDDB00AA35D3 /* presentationCard.m */; };
+		E4C5E0DF1A4916AF0059E445 /* NNbanner.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C5E0DE1A4916AF0059E445 /* NNbanner.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		E4C0221A1A48ABAB00AA35D3 /* bubbles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubbles.png; sourceTree = "<group>"; };
 		E4C0221C1A48BDDB00AA35D3 /* presentationCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = presentationCard.h; sourceTree = "<group>"; };
 		E4C0221D1A48BDDB00AA35D3 /* presentationCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = presentationCard.m; sourceTree = "<group>"; };
+		E4C5E0DE1A4916AF0059E445 /* NNbanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NNbanner.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				E4C022161A48AB7400AA35D3 /* eye.png */,
 				E4C022181A48AB8E00AA35D3 /* analytics.png */,
 				E4C0221A1A48ABAB00AA35D3 /* bubbles.png */,
+				E4C5E0DE1A4916AF0059E445 /* NNbanner.png */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4C022191A48AB8E00AA35D3 /* analytics.png in Resources */,
+				E4C5E0DF1A4916AF0059E445 /* NNbanner.png in Resources */,
 				E4C0220E1A48AAB000AA35D3 /* coffee.png in Resources */,
 				E4C022131A48AB1600AA35D3 /* archive.png in Resources */,
 				E4C0220D1A48AAB000AA35D3 /* clock.png in Resources */,
