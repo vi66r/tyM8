@@ -251,11 +251,16 @@
 }
 
 - (void)closeCard{
-    for (presentationCard* c in _cardArray) {
-        [c removeFromSuperview];
-    }
-    [UIView animateWithDuration:0.2 animations:^{
+    
+
+    
+    
+        [UIView animateWithDuration:0.2 animations:^{
         [_close setFrame:CGRectMake(_screen.size.width-86-10+33, _screen.size.height-86-10+33, 0, 0)];
+            for (int i = 0; i < [_cardArray count]; ++i) {
+                CGPoint position = CGPointMake(_screen.size.width + ((_screen.size.width * i)+20), _cardOne.frame.origin.y);
+                [(presentationCard*)_cardArray[i] resetPosition:position onScreen:_screen];
+            }
     } completion:^(BOOL finished) {
 //        [_cardOne removeFromSuperview];
         [UIView animateWithDuration:0.2 animations:^{

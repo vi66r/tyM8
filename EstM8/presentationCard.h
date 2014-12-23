@@ -15,5 +15,6 @@
 @property (nonatomic) NSInteger typeNum;
 
 - (instancetype)initWithPosition:(CGPoint)position andScreen:(CGRect)screen andTypeNum:(NSInteger)type;
+- (void)resetPosition:(CGPoint)toPosition onScreen:(CGRect)screen;
 
 @end

@@ -38,4 +38,8 @@
     return self;
 }
 
+- (void)resetPosition:(CGPoint)toPosition onScreen:(CGRect)screen{
+    self.frame = CGRectMake(toPosition.x, toPosition.y, screen.size.width-40, screen.size.height-128);
+}
+
 @end
