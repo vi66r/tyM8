@@ -206,6 +206,7 @@
         [alert show];
     } else {
         _results = [_paperDateParser getPageStatsBasedWithNumberOfPages:[_paperNumber.text doubleValue] andDate:_dueDate];
+        NSLog(@"central results: %@", _results);
         [_go removeFromSuperview];
         [_main bringSubviewToFront:_close];
         [UIView animateWithDuration:0.2 animations:^{
@@ -241,8 +242,7 @@
                     CGPoint position = CGPointMake(_screen.size.width + ((_screen.size.width * i)+20), _cardOne.frame.origin.y);
                     NSLog(@"x position: %f", _cardOne.frame.size.width/2 + ((_screen.size.width) * (i)));
                     NSLog(@"type Number: %i", i);
-                    presentationCard* card = [[presentationCard alloc] initWithPosition:position andScreen:_screen andTypeNum:i];
-                    
+                    presentationCard* card = [[presentationCard alloc] initWithPosition:position andScreen:_screen andTypeNum:i andResults:_results];
                     [_cardArray addObject:card];
                     [_main addSubview:[_cardArray objectAtIndex:i]];
                     [_main bringSubviewToFront:_close];

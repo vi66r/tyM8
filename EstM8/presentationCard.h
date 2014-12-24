@@ -14,7 +14,7 @@
 //@property (strong, nonatomic) UIImage* image;
 @property (nonatomic) NSInteger typeNum;
 
-- (instancetype)initWithPosition:(CGPoint)position andScreen:(CGRect)screen andTypeNum:(NSInteger)type;
+- (instancetype)initWithPosition:(CGPoint)position andScreen:(CGRect)screen andTypeNum:(NSInteger)type andResults:(NSMutableDictionary*)results;
 - (void)resetPosition:(CGPoint)toPosition onScreen:(CGRect)screen;
 
 @end

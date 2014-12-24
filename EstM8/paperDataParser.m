@@ -7,6 +7,8 @@
 //
 
 #import "paperDataParser.h"
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 
 @implementation paperDataParser
 
@@ -243,6 +245,8 @@
             canYouDoIt = @"unless you're bogged down with other work (or personal issues), there's no excuse to NOT be able to do this.";
     }
     
+    timeLeft = timeLeft*60*60;
+    
     NSLog(@"can you do this: %@", canYouDoIt);
     
     //average composition speed: 19wpm
@@ -274,8 +278,16 @@
     int sources = round(numberOfWords/425);
     int references = sources*3;
     
+    NSDate* canFinish = [NSDate dateWithTimeIntervalSinceNow:timeWithoutDistraction];
+    NSDate* actualCanFinish = [NSDate dateWithTimeIntervalSinceNow:actualTime];
+    NSDate* timeWithResearch = [NSDate dateWithTimeIntervalSinceNow:timeWithResearchAndDistraction];
+    
+    int numParagraphs = numberOfWords/15/5;
+    
+    
     results = [@{@"wordsPerPage": [NSNumber numberWithDouble:wordsPerPage],
                      @"numberOfWords": [NSNumber numberWithDouble:numberOfWords],
+                     @"numberOfParagraphs": [NSNumber numberWithInt:numParagraphs],
                      @"possible": canYouDoIt,
                      @"timeLeft": [NSNumber numberWithDouble:timeLeft],
                      @"timeNoDistract": [NSNumber numberWithInt:timeWithoutDistraction],
@@ -287,7 +299,11 @@
                      @"coffee": [NSNumber numberWithInt:coffee],
                      @"proofread": [NSNumber numberWithInt:proofReadingTime],
                      @"sources": [NSNumber numberWithInt:sources],
-                     @"references": [NSNumber numberWithInt:references]} mutableCopy];
+                     @"references": [NSNumber numberWithInt:references],
+                     @"dueDate": dueDate,
+                     @"canFinish": canFinish,
+                     @"actualCanFinish": actualCanFinish,
+                     @"rtime": timeWithResearch} mutableCopy];
     NSLog(@"%@", results);
        return results;
 }

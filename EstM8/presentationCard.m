@@ -8,24 +8,27 @@
 
 #import "presentationCard.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+
 @implementation presentationCard
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 
-- (instancetype)initWithPosition:(CGPoint)position andScreen:(CGRect)screen andTypeNum:(NSInteger)type{
+- (instancetype)initWithPosition:(CGPoint)position andScreen:(CGRect)screen andTypeNum:(NSInteger)type andResults:(NSMutableDictionary *)results{
     self = [super initWithFrame: CGRectZero];
-    NSArray *imageNames = @[@"chart.png",
+    NSArray *imageNames = @[@"dock.png",
                             @"clock.png",
-                            @"analytics.png",
-                            @"tv.png",
                             @"graph.png",
+                            @"tv.png",
+                            @"analytics.png",
                             @"coffee.png",
                             @"eye.png",
                             @"archive.png",
@@ -39,6 +42,134 @@
     UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[imageNames objectAtIndex:type]]];
     [image setFrame:CGRectMake(self.frame.size.width/2-60, self.frame.size.height/5-60, 120, 120)];
     [self addSubview:image];
+    
+    switch (type) {
+        case 0:{
+            int hours = [[results objectForKey:@"timeNoDistract"] intValue]/60/60;
+            int minutes = [[results objectForKey:@"timeNoDistract"] intValue]/60%60;
+            NSLog(@"test: %@", results);
+            NSLog(@"QUE: %i", minutes);
+            UILabel* topLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3, self.frame.size.width-40, 66)];
+            if (hours == 1) {
+                topLabel.text = [@"If you started now, it'd take you " stringByAppendingString:[[[NSString stringWithFormat:@"%i", hours] stringByAppendingString:@" hour and "] stringByAppendingString:[[NSString stringWithFormat:@"%i", minutes] stringByAppendingString:@" minutes."]]];
+            } else {
+                topLabel.text = [@"If you started now, it'd take you " stringByAppendingString:[[[NSString stringWithFormat:@"%i", hours] stringByAppendingString:@" hours and "] stringByAppendingString:[[NSString stringWithFormat:@"%i", minutes] stringByAppendingString:@" minutes."]]];
+            }
+            topLabel.font = [UIFont fontWithName:@"Avenir-Black" size:25];
+            topLabel.textColor = UIColorFromRGB(0x03A9F4);
+            topLabel.alpha = 1;
+            topLabel.numberOfLines = 0;
+            [topLabel sizeToFit];
+            topLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:topLabel];
+            NSNumber* words = [results objectForKey:@"numberOfWords"];
+            NSNumber* paragraphs = [results objectForKey:@"numberOfParagraphs"];
+            UILabel* bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3+topLabel.frame.size.height+15, self.frame.size.width-40, 66)];
+            bottomLabel.text = [@"This essay will probably have around " stringByAppendingString:[[[words stringValue] stringByAppendingString:@" words and come out to about "] stringByAppendingString:[[paragraphs stringValue] stringByAppendingString:@" paragraphs."]]];
+            bottomLabel.font = [UIFont fontWithName:@"Avenir-Black" size:25];
+            bottomLabel.textColor = UIColorFromRGB(0x03A9F4);
+            bottomLabel.alpha = 1;
+            bottomLabel.numberOfLines = 0;
+            [bottomLabel sizeToFit];
+            bottomLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:bottomLabel];
+            
+        }
+            break;
+        case 1:{
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"hh:mm"];
+            NSString *timeString = [formatter stringFromDate:[results objectForKey:@"canFinish"]];
+            NSString *actualTimeString = [formatter stringFromDate:[results objectForKeyedSubscript:@"actualCanFinish"]];
+            NSLog(@"test: %@", results);
+            //NSLog(@"QUE: %i", minutes);
+            UILabel* topLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3, self.frame.size.width-40, 66)];
+            topLabel.text = [@"That means you should be done by " stringByAppendingString:[timeString stringByAppendingString:@"."]];
+            topLabel.font = [UIFont fontWithName:@"Avenir-Black" size:25];
+            topLabel.textColor = UIColorFromRGB(0x03A9F4);
+            topLabel.alpha = 1;
+            topLabel.numberOfLines = 0;
+            [topLabel sizeToFit];
+            topLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:topLabel];
+            int hours = [[results objectForKey:@"timeToComplete"] intValue]/60/60;
+            int minutes = [[results objectForKey:@"timeToComplete"] intValue]/60%60;
+            NSLog(@"test: %@", results);
+            NSLog(@"QUE: %i", minutes);
+            UILabel* bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3+topLabel.frame.size.height+15, self.frame.size.width-40, 66)];
+            if (hours == 1) {
+                bottomLabel.text = [@"But life has its distractions, so it'll actually take you around " stringByAppendingString:[[[NSString stringWithFormat:@"%i", hours] stringByAppendingString:@" hour and "] stringByAppendingString:[[[[NSString stringWithFormat:@"%i", minutes] stringByAppendingString:@" minutes. So you'll actually finish around "] stringByAppendingString:actualTimeString] stringByAppendingString:@"."]]];
+            } else {
+                bottomLabel.text = [@"But life has its distractions, so it'll actually take you around " stringByAppendingString:[[[NSString stringWithFormat:@"%i", hours] stringByAppendingString:@" hours and "] stringByAppendingString:[[[[NSString stringWithFormat:@"%i", minutes] stringByAppendingString:@" minutes. So you'll actually finish around "] stringByAppendingString:actualTimeString] stringByAppendingString:@"."]]];
+            }
+            bottomLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20];
+            bottomLabel.textColor = UIColorFromRGB(0x03A9F4);
+            bottomLabel.alpha = 1;
+            bottomLabel.numberOfLines = 0;
+            [bottomLabel sizeToFit];
+            bottomLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:bottomLabel];
+            
+        }
+            break;
+        case 2:{
+            int hours = [[results objectForKey:@"timeToResearchAndComplete"] intValue]/60/60;
+            int minutes = [[results objectForKey:@"timeToResearchAndComplete"] intValue]/60%60;
+            NSLog(@"test: %@", results);
+            NSLog(@"QUE: %i", minutes);
+            UILabel* topLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3, self.frame.size.width-40, 66)];
+            if (hours == 1) {
+                topLabel.text = [@"Unless you didn't do any research, in which case, for a paper of this size, it should take you " stringByAppendingString:[[[NSString stringWithFormat:@"%i", hours] stringByAppendingString:@" hour and "] stringByAppendingString:[[NSString stringWithFormat:@"%i", minutes] stringByAppendingString:@" minutes."]]];
+            } else {
+                topLabel.text = [@"Unless you didn't do any research, in which case, for a paper of this size, should take you " stringByAppendingString:[[[NSString stringWithFormat:@"%i", hours] stringByAppendingString:@" hours and "] stringByAppendingString:[[NSString stringWithFormat:@"%i", minutes] stringByAppendingString:@" minutes."]]];
+            }
+            topLabel.font = [UIFont fontWithName:@"Avenir-Black" size:25];
+            topLabel.textColor = UIColorFromRGB(0x03A9F4);
+            topLabel.alpha = 1;
+            topLabel.numberOfLines = 0;
+            [topLabel sizeToFit];
+            topLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:topLabel];
+            
+        }
+            break;
+        case 3:{
+            int hours = [[results objectForKey:@"facebook"] intValue]/60/60;
+            int minutes = [[results objectForKey:@"facebook"] intValue]/60%60;
+            NSLog(@"test: %@", results);
+            NSLog(@"QUE: %i", minutes);
+            UILabel* topLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3, self.frame.size.width-40, 66)];
+            if (hours == 1) {
+                topLabel.text = [@"For a paper of this size, the average person will end up spending " stringByAppendingString:[[[NSString stringWithFormat:@"%i", hours] stringByAppendingString:@" hour and "] stringByAppendingString:[[NSString stringWithFormat:@"%i", minutes] stringByAppendingString:@" minutes on Facebook, Buzzfeed, or Youtube."]]];
+            } else {
+                topLabel.text = [@"For a paper of this size, the average person will end up spending " stringByAppendingString:[[[NSString stringWithFormat:@"%i", hours] stringByAppendingString:@" hours and "] stringByAppendingString:[[NSString stringWithFormat:@"%i", minutes] stringByAppendingString:@" minutes on Facebook, Buzzfeed, or Youtube."]]];
+            }
+            topLabel.font = [UIFont fontWithName:@"Avenir-Black" size:25];
+            topLabel.textColor = UIColorFromRGB(0x03A9F4);
+            topLabel.alpha = 1;
+            topLabel.numberOfLines = 0;
+            [topLabel sizeToFit];
+            topLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:topLabel];
+        }
+            break;
+        case 4:
+            //
+            break;
+        case 5:
+            //
+            break;
+        case 6:
+            //
+            break;
+        case 7:
+            //
+            break;
+            
+            
+        default:
+            break;
+    }
     
     return self;
 }

@@ -26,8 +26,11 @@
     }
     
     if ([timeStringComponents count] > 1) {
-        if ([[[timeStringComponents objectAtIndex:1] lowercaseString] isEqualToString:@"pm"]) {
+        if ([[[timeStringComponents objectAtIndex:1] lowercaseString] isEqualToString:@"pm"] && [[hoursAndMinutes objectAtIndex:0] intValue] > 12) {
             NSString* replacement = [NSString stringWithFormat:@"%f", [[hoursAndMinutes objectAtIndex:0] doubleValue]+12];
+            [hoursAndMinutes replaceObjectAtIndex:0 withObject:replacement];
+        } else if([[[timeStringComponents objectAtIndex:1] lowercaseString] isEqualToString:@"pm"] && [[hoursAndMinutes objectAtIndex:0] intValue] == 12) {
+            NSString* replacement = @"00";
             [hoursAndMinutes replaceObjectAtIndex:0 withObject:replacement];
         }
     }
