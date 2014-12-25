@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E40077B01A4BBED300A1DED6 /* never.png in Resources */ = {isa = PBXBuildFile; fileRef = E40077AF1A4BBED300A1DED6 /* never.png */; };
+		E40077B21A4BBF2000A1DED6 /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = E40077B11A4BBF2000A1DED6 /* ok.png */; };
 		E4A2862B1A4675510090526F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A2862A1A4675510090526F /* main.m */; };
 		E4A2862E1A4675510090526F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A2862D1A4675510090526F /* AppDelegate.m */; };
 		E4A286311A4675510090526F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A286301A4675510090526F /* ViewController.m */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E40077AF1A4BBED300A1DED6 /* never.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = never.png; sourceTree = "<group>"; };
+		E40077B11A4BBF2000A1DED6 /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
 		E4A286251A4675510090526F /* EstM8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EstM8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4A286291A4675510090526F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4A2862A1A4675510090526F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 				E4C022181A48AB8E00AA35D3 /* analytics.png */,
 				E4C0221A1A48ABAB00AA35D3 /* bubbles.png */,
 				E4C5E0DE1A4916AF0059E445 /* NNbanner.png */,
+				E40077AF1A4BBED300A1DED6 /* never.png */,
+				E40077B11A4BBF2000A1DED6 /* ok.png */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -267,6 +273,7 @@
 				E4C0220E1A48AAB000AA35D3 /* coffee.png in Resources */,
 				E4C022131A48AB1600AA35D3 /* archive.png in Resources */,
 				E4C0220D1A48AAB000AA35D3 /* clock.png in Resources */,
+				E40077B21A4BBF2000A1DED6 /* ok.png in Resources */,
 				E4A286341A4675510090526F /* Main.storyboard in Resources */,
 				E4C022111A48AAB000AA35D3 /* timer.png in Resources */,
 				E4C022101A48AAB000AA35D3 /* graph.png in Resources */,
@@ -278,6 +285,7 @@
 				E4A286361A4675510090526F /* Images.xcassets in Resources */,
 				E4C022151A48AB6900AA35D3 /* tv.png in Resources */,
 				E4C022171A48AB7400AA35D3 /* eye.png in Resources */,
+				E40077B01A4BBED300A1DED6 /* never.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
