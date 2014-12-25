@@ -29,7 +29,6 @@
                             @"graph.png",
                             @"tv.png",
                             @"analytics.png",
-                            @"coffee.png",
                             @"eye.png",
                             @"archive.png",
                             @"book.png"];
@@ -133,8 +132,8 @@
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"hh:mm"];
             NSString *timeString = [formatter stringFromDate:[results objectForKey:@"rtime"]];
-
-            UILabel* bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3+topLabel.frame.size.height+15, self.frame.size.width-40, 66)];
+            
+            UILabel* bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, self.frame.size.height/3+topLabel.frame.size.height+15, self.frame.size.width-40, 66)];
             bottomLabel.text = [[@"You'll be able to finish by " stringByAppendingString:timeString] stringByAppendingString:@" if you start now."];
             bottomLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20];
             bottomLabel.textColor = UIColorFromRGB(0x03A9F4);
@@ -143,7 +142,7 @@
             [bottomLabel sizeToFit];
             bottomLabel.textAlignment = NSTextAlignmentCenter;
             [self addSubview:bottomLabel];
-
+            
             
         }
             break;
@@ -177,20 +176,71 @@
             [topLabel sizeToFit];
             topLabel.textAlignment = NSTextAlignmentCenter;
             [self addSubview:topLabel];
+            NSNumber* coffee = [results objectForKey:@"coffee"];
+            UILabel* bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3+topLabel.frame.size.height+15, self.frame.size.width-40, 66)];
+            if ([coffee intValue] == 1) {
+                bottomLabel.text = [@"And you'll probably need " stringByAppendingString:[[coffee stringValue] stringByAppendingString:@" cup of coffee to finish this."]];
+            } else {
+                bottomLabel.text = [@"And you'll probably need " stringByAppendingString:[[coffee stringValue] stringByAppendingString:@" cups of coffee to finish this."]];
+            }
+            bottomLabel.font = [UIFont fontWithName:@"Avenir-Black" size:25];
+            bottomLabel.textColor = UIColorFromRGB(0x03A9F4);
+            bottomLabel.alpha = 1;
+            bottomLabel.numberOfLines = 0;
+            [bottomLabel sizeToFit];
+            bottomLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:bottomLabel];
+            
         }
             
             break;
         case 5:
-            //
-            break;
-        case 6:
-            //
-            break;
-        case 7:
-            //
-            break;
+        {
+            int read = [[results objectForKey:@"readtime"] intValue]/60;
+            int proof = [[results objectForKey:@"proofread"] intValue]/60;
+            UILabel* topLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3, self.frame.size.width-40, 66)];
+            topLabel.text = [[@"This essay is going to take just about " stringByAppendingString:[NSString stringWithFormat:@"%i", read]] stringByAppendingString:@" minutes to read."];
+            topLabel.font = [UIFont fontWithName:@"Avenir-Black" size:25];
+            topLabel.textColor = UIColorFromRGB(0x03A9F4);
+            topLabel.alpha = 1;
+            topLabel.numberOfLines = 0;
+            [topLabel sizeToFit];
+            topLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:topLabel];
+            UILabel* bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3+topLabel.frame.size.height+15, self.frame.size.width-40, 66)];
+            bottomLabel.text = [[@"And around " stringByAppendingString:[NSString stringWithFormat:@"%i", proof]] stringByAppendingString:@" minutes to proofread."];
+            bottomLabel.font = [UIFont fontWithName:@"Avenir-Black" size:25];
+            bottomLabel.textColor = UIColorFromRGB(0x03A9F4);
+            bottomLabel.alpha = 1;
+            bottomLabel.numberOfLines = 0;
+            [bottomLabel sizeToFit];
+            bottomLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:bottomLabel];
             
-            
+        }
+            break;
+        case 6:{
+            UILabel* topLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3, self.frame.size.width-40, 66)];
+            topLabel.text = [[@"You should use about " stringByAppendingString:[[results objectForKey:@"sources"] stringValue]] stringByAppendingString:@" sources."];
+            topLabel.font = [UIFont fontWithName:@"Avenir-Black" size:25];
+            topLabel.textColor = UIColorFromRGB(0x03A9F4);
+            topLabel.alpha = 1;
+            topLabel.numberOfLines = 0;
+            [topLabel sizeToFit];
+            topLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:topLabel];
+            UILabel* bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, self.frame.size.height/3+topLabel.frame.size.height+15, self.frame.size.width-40, 66)];
+            bottomLabel.text = [[@"And " stringByAppendingString:[[results objectForKey:@"references"] stringValue]] stringByAppendingString:@" references in total."];
+            bottomLabel.font = [UIFont fontWithName:@"Avenir-Black" size:25];
+            bottomLabel.textColor = UIColorFromRGB(0x03A9F4);
+            bottomLabel.alpha = 1;
+            bottomLabel.numberOfLines = 0;
+            [bottomLabel sizeToFit];
+            bottomLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:bottomLabel];
+        }
+            break;
+
         default:
             break;
     }

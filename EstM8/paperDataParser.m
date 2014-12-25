@@ -132,7 +132,7 @@
                 canYouDoIt = @"you may actually be able to pull it off.";
                 break;
             case 3:
-                canYouDoIt = @"concentrate. No breaks.";
+                canYouDoIt = @"you need to concentrate. No breaks.";
                 break;
             case 4:
                 canYouDoIt = @"this is impossible...";
@@ -242,7 +242,7 @@
         }
     }else if(timeLeft > 72){
                 
-            canYouDoIt = @"unless you're bogged down with other work (or personal issues), there's no excuse to NOT be able to do this.";
+            canYouDoIt = @"you even have time to plan!";
     }
     
     timeLeft = timeLeft*60*60;

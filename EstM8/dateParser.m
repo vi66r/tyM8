@@ -47,7 +47,6 @@
                 if ([timeStringComponents count] > 1) {
                     if ([[[timeStringComponents objectAtIndex:1] lowercaseString] isEqualToString:@"am"]) {
                         NSInteger day = [components weekday] + 1;
-                        dueDate = [NSDate dateWithTimeIntervalSinceNow:86400];
                     } else {
                         dueDate = now;
                     }
@@ -55,6 +54,19 @@
                     dueDate = now;
                 }
                 
+            } else if([[[stringComponents objectAtIndex:0] lowercaseString] isEqualToString:@"tomorrow"]){
+                if ([timeStringComponents count] > 1) {
+                    if ([[[timeStringComponents objectAtIndex:1] lowercaseString] isEqualToString:@"am"]) {
+                        NSInteger day = [components weekday] + 2;
+                        dueDate = [NSDate dateWithTimeIntervalSinceNow:86400];
+                    } else {
+                        dueDate = [NSDate dateWithTimeIntervalSinceNow:86400];
+
+                    }
+                } else {
+                        dueDate = [NSDate dateWithTimeIntervalSinceNow:86400];
+
+                }
             }
             
             if ([[[stringComponents objectAtIndex:0] lowercaseString] isEqualToString:@"monday"]) {

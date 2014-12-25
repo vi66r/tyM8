@@ -241,12 +241,12 @@
                     [_possiblé sizeToFit];
                     _possiblé.textAlignment = NSTextAlignmentCenter;
                     [_cardOne addSubview:_possiblé];
-                    
-                    for (int i = 0; i < 8; ++i) {
+                    _cardArray = [[NSMutableArray new] init];
+                    for (int i = 0; i < 7; ++i) {
                         CGPoint position = CGPointMake(_screen.size.width + ((_screen.size.width * i)+20), _cardOne.frame.origin.y);
                         NSLog(@"x position: %f", _cardOne.frame.size.width/2 + ((_screen.size.width) * (i)));
                         NSLog(@"type Number: %i", i);
-                        presentationCard* card = [[presentationCard alloc] initWithPosition:position andScreen:_screen andTypeNum:i andResults:_results];
+                        presentationCard* card = [[presentationCard new] initWithPosition:position andScreen:_screen andTypeNum:i andResults:_results];
                         [_cardArray addObject:card];
                         [_main addSubview:[_cardArray objectAtIndex:i]];
                         [_main bringSubviewToFront:_close];
@@ -315,9 +315,6 @@
             }
         } completion:^(BOOL finished) {
             //        [_cardOne removeFromSuperview];
-            for (int i = 0; i < [_cardArray count]; ++i) {
-                _cardArray[i] = nil;
-            }
             [_looksLike removeFromSuperview];
             [_possiblé removeFromSuperview];
             [UIView animateWithDuration:0.2 animations:^{
