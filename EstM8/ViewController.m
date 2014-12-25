@@ -200,70 +200,76 @@
 }
 
 - (void)calculate {
-    _dueDate = [_dateParser parseStringToDueDate:_date.text withTimeString:_time.text];
-    if (_dueDate == nil) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"..." message:@"Try a format that makes sense, yo." delegate:nil cancelButtonTitle:@"kayyy" otherButtonTitles:nil, nil];
+    if ([_paperNumber.text isEqualToString:@""] || [_paperNumber.text isEqualToString:@""] || [_paperNumber.text isEqualToString:@""]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh-oh" message:@"There's something wrong with what you've entred" delegate:nil cancelButtonTitle:@"okay" otherButtonTitles:nil, nil];
         [alert show];
     } else {
-        _results = [_paperDateParser getPageStatsBasedWithNumberOfPages:[_paperNumber.text doubleValue] andDate:_dueDate];
-        NSLog(@"central results: %@", _results);
-        [_go removeFromSuperview];
-        [_main bringSubviewToFront:_close];
-        [UIView animateWithDuration:0.2 animations:^{
-            [_cardOne setFrame:CGRectMake(15, 98, _screen.size.width-30, _screen.size.height - 118)];
-            _cardOne.layer.cornerRadius = 0;
-        } completion:^(BOOL finished) {
+        _dueDate = [_dateParser parseStringToDueDate:_date.text withTimeString:_time.text];
+        if (_dueDate == nil) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"..." message:@"Try a format that makes sense, yo." delegate:nil cancelButtonTitle:@"kayyy" otherButtonTitles:nil, nil];
+            [alert show];
+        } else {
+            _results = [_paperDateParser getPageStatsBasedWithNumberOfPages:[_paperNumber.text doubleValue] andDate:_dueDate];
+            NSLog(@"central results: %@", _results);
+            [_go removeFromSuperview];
+            [_main bringSubviewToFront:_close];
             [UIView animateWithDuration:0.2 animations:^{
-                [_cardOne setFrame:CGRectMake(20, 108, _screen.size.width-40, _screen.size.height - 128)];
-                [_close setFrame:CGRectMake(_screen.size.width-86-10, _screen.size.height-86-10, 66, 66)];
-                _close.layer.cornerRadius = _close.frame.size.width/2;
-                _cardOne.backgroundColor = [UIColor whiteColor];
+                [_cardOne setFrame:CGRectMake(15, 98, _screen.size.width-30, _screen.size.height - 118)];
+                _cardOne.layer.cornerRadius = 0;
             } completion:^(BOOL finished) {
-                //                [_main addSubview:_cardOne];
-                //                [_main bringSubviewToFront:_close];
-                
-                _looksLike = [[UILabel alloc] initWithFrame:CGRectMake(_cardOne.frame.size.width/2-100, _cardOne.frame.size.height/5+20, 200, 60)];
-                _looksLike.text = @"Looks like";
-                _looksLike.font = [UIFont fontWithName:@"Avenir-Black" size:40];
-                _looksLike.textColor = UIColorFromRGB(0x03A9F4);
-                _looksLike.alpha = 0;
-                [_cardOne addSubview:_looksLike];
-                _possiblé = [[UILabel alloc] initWithFrame:CGRectMake(_cardOne.frame.size.width/2-120, _cardOne.frame.size.height/5+90, 240, 240)];
-                _possiblé.text = [_results objectForKey:@"possible"];
-                _possiblé.font = [UIFont fontWithName:@"Avenir-Black" size:30];
-                _possiblé.textColor = UIColorFromRGB(0x03A9F4);
-                _possiblé.alpha = 0;
-                _possiblé.numberOfLines = 0;
-                [_possiblé sizeToFit];
-                _possiblé.textAlignment = NSTextAlignmentCenter;
-                [_cardOne addSubview:_possiblé];
-
-                for (int i = 0; i < 8; ++i) {
-                    CGPoint position = CGPointMake(_screen.size.width + ((_screen.size.width * i)+20), _cardOne.frame.origin.y);
-                    NSLog(@"x position: %f", _cardOne.frame.size.width/2 + ((_screen.size.width) * (i)));
-                    NSLog(@"type Number: %i", i);
-                    presentationCard* card = [[presentationCard alloc] initWithPosition:position andScreen:_screen andTypeNum:i andResults:_results];
-                    [_cardArray addObject:card];
-                    [_main addSubview:[_cardArray objectAtIndex:i]];
-                    [_main bringSubviewToFront:_close];
-                    [UIView animateWithDuration:0.4 animations:^{
-                        _looksLike.alpha = 1.0;
-                    } completion:^(BOOL finished) {
-                        [UIView animateWithDuration:0.8 animations:^{
-                            _possiblé.alpha = 1.0;
+                [UIView animateWithDuration:0.2 animations:^{
+                    [_cardOne setFrame:CGRectMake(20, 108, _screen.size.width-40, _screen.size.height - 128)];
+                    [_close setFrame:CGRectMake(_screen.size.width-86-10, _screen.size.height-86-10, 66, 66)];
+                    _close.layer.cornerRadius = _close.frame.size.width/2;
+                    _cardOne.backgroundColor = [UIColor whiteColor];
+                } completion:^(BOOL finished) {
+                    //                [_main addSubview:_cardOne];
+                    //                [_main bringSubviewToFront:_close];
+                    
+                    _looksLike = [[UILabel alloc] initWithFrame:CGRectMake(_cardOne.frame.size.width/2-100, _cardOne.frame.size.height/5+20, 200, 60)];
+                    _looksLike.text = @"Looks like";
+                    _looksLike.font = [UIFont fontWithName:@"Avenir-Black" size:40];
+                    _looksLike.textColor = UIColorFromRGB(0x03A9F4);
+                    _looksLike.alpha = 0;
+                    [_cardOne addSubview:_looksLike];
+                    _possiblé = [[UILabel alloc] initWithFrame:CGRectMake(_cardOne.frame.size.width/2-120, _cardOne.frame.size.height/5+90, 240, 240)];
+                    _possiblé.text = [_results objectForKey:@"possible"];
+                    _possiblé.font = [UIFont fontWithName:@"Avenir-Black" size:30];
+                    _possiblé.textColor = UIColorFromRGB(0x03A9F4);
+                    _possiblé.alpha = 0;
+                    _possiblé.numberOfLines = 0;
+                    [_possiblé sizeToFit];
+                    _possiblé.textAlignment = NSTextAlignmentCenter;
+                    [_cardOne addSubview:_possiblé];
+                    
+                    for (int i = 0; i < 8; ++i) {
+                        CGPoint position = CGPointMake(_screen.size.width + ((_screen.size.width * i)+20), _cardOne.frame.origin.y);
+                        NSLog(@"x position: %f", _cardOne.frame.size.width/2 + ((_screen.size.width) * (i)));
+                        NSLog(@"type Number: %i", i);
+                        presentationCard* card = [[presentationCard alloc] initWithPosition:position andScreen:_screen andTypeNum:i andResults:_results];
+                        [_cardArray addObject:card];
+                        [_main addSubview:[_cardArray objectAtIndex:i]];
+                        [_main bringSubviewToFront:_close];
+                        [UIView animateWithDuration:0.4 animations:^{
+                            _looksLike.alpha = 1.0;
                         } completion:^(BOOL finished) {
-                            //
+                            [UIView animateWithDuration:0.8 animations:^{
+                                _possiblé.alpha = 1.0;
+                            } completion:^(BOOL finished) {
+                                //
+                            }];
                         }];
-                    }];
-                }
+                    }
+                }];
             }];
-        }];
-        
-        
-        
-        _go.userInteractionEnabled = NO;
+            
+            
+            
+            _go.userInteractionEnabled = NO;
+        }
+        NSLog(@"%@", _dueDate);
+
     }
-    NSLog(@"%@", _dueDate);
 }
 
 - (void)moveLeft{
@@ -295,7 +301,7 @@
 }
 
 - (void)closeCard{
-    
+    _results = nil;
     CGRect comparator = CGRectMake(20, 108, _screen.size.width-40, _screen.size.height - 128);
     if (CGRectEqualToRect(_cardOne.frame, comparator)) {
         [UIView animateWithDuration:0.2 animations:^{
@@ -309,6 +315,9 @@
             }
         } completion:^(BOOL finished) {
             //        [_cardOne removeFromSuperview];
+            for (int i = 0; i < [_cardArray count]; ++i) {
+                _cardArray[i] = nil;
+            }
             [_looksLike removeFromSuperview];
             [_possiblé removeFromSuperview];
             [UIView animateWithDuration:0.2 animations:^{

@@ -130,6 +130,20 @@
             [topLabel sizeToFit];
             topLabel.textAlignment = NSTextAlignmentCenter;
             [self addSubview:topLabel];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"hh:mm"];
+            NSString *timeString = [formatter stringFromDate:[results objectForKey:@"rtime"]];
+
+            UILabel* bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3+topLabel.frame.size.height+15, self.frame.size.width-40, 66)];
+            bottomLabel.text = [[@"You'll be able to finish by " stringByAppendingString:timeString] stringByAppendingString:@" if you start now."];
+            bottomLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20];
+            bottomLabel.textColor = UIColorFromRGB(0x03A9F4);
+            bottomLabel.alpha = 1;
+            bottomLabel.numberOfLines = 0;
+            [bottomLabel sizeToFit];
+            bottomLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:bottomLabel];
+
             
         }
             break;
@@ -153,8 +167,18 @@
             [self addSubview:topLabel];
         }
             break;
-        case 4:
-            //
+        case 4:{
+            UILabel* topLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, self.frame.size.height/3, self.frame.size.width-40, 66)];
+            topLabel.text = [[@"You'll burn about " stringByAppendingString:[[results objectForKey:@"calories"] stringValue]] stringByAppendingString:@" calories just typing this."];
+            topLabel.font = [UIFont fontWithName:@"Avenir-Black" size:25];
+            topLabel.textColor = UIColorFromRGB(0x03A9F4);
+            topLabel.alpha = 1;
+            topLabel.numberOfLines = 0;
+            [topLabel sizeToFit];
+            topLabel.textAlignment = NSTextAlignmentCenter;
+            [self addSubview:topLabel];
+        }
+            
             break;
         case 5:
             //
